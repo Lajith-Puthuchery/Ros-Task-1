@@ -26,6 +26,10 @@
     </inertial>
   </link>
 
+  <gazebo reference="base_link">
+      <material>Gazebo/White</material>
+  </gazebo>
+
 <link name="right_front_wheel">
   <!--origin xyz="0.1 -0.13 0.1" rpy="0 1.5707 1.5707"/-->
     <visual>
@@ -52,13 +56,17 @@
     </inertial>
   </link>
 
+  <gazebo reference="right_front_wheel">
+      <material>Gazebo/Black</material>
+  </gazebo>
+
 <joint name="right_front_wheel_joint" type="continuous">
     <parent link="body"/>
     <child link="right_front_wheel"/>
     <origin rpy="0 0 0" xyz="0.1 -0.15 0"/>
     <axis xyz="0 1 0" rpy="0 0 0"/>
     <limit effort="100" velocity="100"/>
-    <joint_properties damping="0.0" friction="0.0"/> 
+    <joint_properties damping="1.0" friction="1.0"/> 
   </joint>
 
 
@@ -89,13 +97,17 @@
     </inertial>
   </link>
 
+  <gazebo reference="left_front_wheel">
+      <material>Gazebo/Black</material>
+  </gazebo>
+
 <joint name="left_front_wheel_joint" type="continuous">
     <parent link="body"/>
     <child link="left_front_wheel"/>
     <origin rpy="0 0 0" xyz="0.1 0.15 0"/>
     <axis xyz="0 1 0" rpy="0 0 0"/>
     <limit effort="100" velocity="100"/>
-    <joint_properties damping="0.0" friction="0.0"/> 
+    <joint_properties damping="1.0" friction="1.0"/> 
   </joint>
 
 
@@ -125,13 +137,17 @@
     </inertial>
   </link>
 
+  <gazebo reference="right_rear_wheel">
+      <material>Gazebo/Black</material>
+  </gazebo>
+
 <joint name="right_rear_wheel_joint" type="continuous">
     <parent link="body"/>
     <child link="right_rear_wheel"/>
     <origin rpy="0 0 0" xyz="-0.1 -0.15 0"/>
     <axis xyz="0 1 0" rpy="0 0 0"/>
     <limit effort="100" velocity="100"/>
-    <joint_properties damping="0.0" friction="0.0"/>
+    <joint_properties damping="1.0" friction="1.0"/>
   </joint>
 
 
@@ -161,6 +177,10 @@
         izz="1.0"/>
     </inertial>
   </link>
+  
+  <gazebo reference="left_rear_wheel">
+      <material>Gazebo/Black</material>
+  </gazebo>
 
 <joint name="left_rear_wheel_joint" type="continuous">
     <parent link="body"/>
@@ -168,8 +188,32 @@
     <origin rpy="0 0 0" xyz="-0.1 0.15 0"/>
     <axis xyz="0 1 0" rpy="0 0 0"/>
     <limit effort="100" velocity="100"/>
-    <joint_properties damping="0.0" friction="0.0"/>
+    <joint_properties damping="1.0" friction="1.0"/>
   </joint>
+
+  
+  <gazebo>
+    <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
+      <legacyMode>false</legacyMode>
+      <alwaysOn>true</alwaysOn>
+      <updateRate>20</updateRate>
+      <leftFrontJoint>left_front_wheel_joint</leftFrontJoint>
+      <rightFrontJoint>right_front_wheel_joint</rightFrontJoint>
+      <leftRearJoint>left_rear_wheel_joint</leftRearJoint>
+      <rightRearJoint>right_rear_wheel_joint</rightRearJoint>
+      <wheelSeparation>0.4</wheelSeparation>
+      <wheelDiameter>0.1</wheelDiameter>
+      <torque>20</torque>
+      <commandTopic>cmd_vel</commandTopic>
+      <odometryTopic>odom</odometryTopic>
+      <odometryFrame>odom</odometryFrame>
+      <robotBaseFrame>body</robotBaseFrame>
+    </plugin>
+  </gazebo>
+
+  <gazebo reference="body">
+    </gazebo>
+
 
 
 </robot>

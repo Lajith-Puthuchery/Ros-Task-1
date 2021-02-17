@@ -18,9 +18,13 @@
   </include>
 
   
-  <param name="robot_description" command="$(find xacro)/xacro.py '$(find firstbot)/urdf/simple_bot.xacro'"/>
+  <param name="robot_description" command="$(find xacro)/xacro '$(find firstbot)/urdf/simple_bot.xacro'" />
+   
+  <node pkg="robot_state_publisher" type="robot_state_publisher"  name="robot_state_publisher">
+    <param name="publish_frequency" type="double" value="30.0" />
+  </node>
 
-  <node name="mybot_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
-   args="-urdf -param robot_description -model mybot" />
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model"
+     args="-z 1.0 -unpause -urdf -model robot -param robot_description" respawn="false" output="screen" />
 
 </launch>
