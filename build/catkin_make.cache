@@ -1,0 +1,2 @@
+firstbot
+-DCATKIN_DEVEL_PREFIX=/home/lajith/simplebot_ws/devel -DCMAKE_INSTALL_PREFIX=/home/lajith/simplebot_ws/install -G Unix Makefiles

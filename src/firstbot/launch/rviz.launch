@@ -1,0 +1,21 @@
+<launch>
+
+<node name="rviz" pkg="rviz" type="rviz" />
+
+<param name="robot_description" command="$(find xacro)/xacro $(find firstbot)/urdf/simple_bot.xacro" />
+
+<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" >
+    <param name="use_gui" value="false" />
+  </node>
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+  <node pkg="firstbot" type="move.py" name="move.py"  output="screen">
+
+    <param name="scale_linear" value="0.5" type="double"/>
+    <param name="scale_angular" value="1.5" type="double"/>
+    <remap from="turtlebot_teleop_keyboard/cmd_vel" to="/cmd_vel"/> 
+
+  </node>
+
+</launch>

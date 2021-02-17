@@ -1,0 +1,8 @@
+prefix=/home/lajith/simplebot_ws/install
+
+Name: firstbot
+Description: Description of firstbot
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
